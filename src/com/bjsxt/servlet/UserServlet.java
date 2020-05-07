@@ -21,7 +21,7 @@ import com.bjsxt.service.impl.UserServiceImpl;
  */
 public class UserServlet extends HttpServlet {
 	UserService us=new UserServiceImpl();
-	Logger logger=Logger.getLogger(UserServlet.class);//������־����
+	Logger logger=Logger.getLogger(UserServlet.class);//日志记录器
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");//设置请求编码格式
@@ -31,7 +31,7 @@ public class UserServlet extends HttpServlet {
 			checkUserLogin(req,resp);//验证登录
 		}else if("out".equals(oper)) {//用户退出
 			userOut(req,resp);
-		}else if("pwd".equals(oper)) {//�����޸�
+		}else if("pwd".equals(oper)) {//修改密码
 			userChangePwd(req,resp);
 		}else if("show".equals(oper)){
 			userShow(req,resp);
@@ -40,7 +40,7 @@ public class UserServlet extends HttpServlet {
 			userReg(req,resp);
 		}
 		else {
-			logger.debug("û���ҵ���Ӧ�Ĳ�������"+oper);
+			logger.debug("无此操作!!!"+oper);
 		}
 	}
 	private void userReg(HttpServletRequest req, HttpServletResponse resp) throws IOException {
