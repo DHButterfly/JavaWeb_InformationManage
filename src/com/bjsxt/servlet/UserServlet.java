@@ -14,10 +14,10 @@ import com.bjsxt.pojo.User;
 import com.bjsxt.service.UserService;
 import com.bjsxt.service.impl.UserServiceImpl;
 /*
- * Servlet�ض���·���ܽ᣺
- *  ���·�����ӵ�ǰ�����·��������Դ��·�������·�������servlet����Ŀ¼��������ض�����Դ����ʧ��
- *  ����·����/������Ŀ��/��Դ·������һ��/Ϊ��������Ŀ¼
- *  ����ת����/��ʾ��Ŀ��Ŀ¼
+ * Servlet重定向路径总结：
+ *  相对路径：从当前请求的路径查找资源的路径，相对路径中如果servlet包含目录，会造成重定向资源查找失败
+ *  绝对路径：/虚拟项目名/资源路径，第一个/为服务器根目录
+ *  请求转发中/表示项目根目录
  */
 public class UserServlet extends HttpServlet {
 	UserService us=new UserServiceImpl();
@@ -40,7 +40,7 @@ public class UserServlet extends HttpServlet {
 			userReg(req,resp);
 		}
 		else {
-			logger.debug("无此操作!!!"+oper);
+			logger.debug("没有找到对应的操作符"+oper);
 		}
 	}
 	private void userReg(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -89,7 +89,7 @@ public class UserServlet extends HttpServlet {
 		hs.invalidate();
 		resp.sendRedirect("/InformationManage/login.jsp");
 	}
-	//�����¼
+	//处理登录请求
 	private void checkUserLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		String uname=req.getParameter("uname");
 		String pwd=req.getParameter("pwd");
@@ -100,7 +100,7 @@ public class UserServlet extends HttpServlet {
 			hs.setAttribute("user", user);
 			resp.sendRedirect("/InformationManage/main/main.jsp");
 			return;
-			//��һ��/Ϊ����������Ŀ¼
+			//第一个/为服务器所在目录
 		}else {
 			req.setAttribute("flag", 0);
 			req.getRequestDispatcher("/login.jsp").forward(req, resp);
